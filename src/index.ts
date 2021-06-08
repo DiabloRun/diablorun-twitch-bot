@@ -1,7 +1,7 @@
 import { getTmiClient } from './tmi_client';
 import { getActiveChannels } from './api';
 import commands from './commands';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 

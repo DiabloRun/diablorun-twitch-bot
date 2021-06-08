@@ -1,4 +1,4 @@
-import tmi from 'tmi.js'
+import * as tmi from 'tmi.js'
 
 export type Client = tmi.Client;
 export type CommandFunction = (client: Client, channel: string, username?: string, ...args: string[]) => Promise<any>;
