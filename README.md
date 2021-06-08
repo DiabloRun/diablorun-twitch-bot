@@ -4,9 +4,11 @@
 
 Copy `.env.example` to `.env` and fill in a twitch username and password. You can remove or leave `CHANNELS` empty to use the list of channels that have opted in to use the DiabloRun bot. Alternatively, you can add comma-separated channel names that the bot will connect to.
 
+Run `npm i` to install dependencies and `npm run dev` to start the bot in development mode.
+
 ## Defining commands
 
-Commands are defined in `src/commands.ts` as async methods. The `CommandFunction` type shows what arguments the command method should accept: `client: Client, channel: string, username?: string, ...args: string[]`.
+Commands are defined in `src/commands.ts` as async methods. The `CommandFunction` type shows what arguments the command method should accept: `client: Client, channel: string, tags: ChatUserstate, ...args: string[]`.
 
 For example, a simple info command `!forge` to output simple text can be defined as follows:
 
