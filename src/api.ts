@@ -36,3 +36,7 @@ export async function getActiveChannels(): Promise<string[]> {
 
     return usernames.map(username => `#${username.toLowerCase()}`);
 }
+
+export async function getLastUpdatedCharacter(username: string): Promise<{ character: { id: number, name: string } }> {
+    return await get(`/users/${username}`);
+}

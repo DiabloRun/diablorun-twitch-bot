@@ -25,12 +25,12 @@ async function run() {
 
     const client = await getTmiClient();
 
-    client.on('message', async (channel, { username }, message) => {
+    client.on('message', async (channel, tags, message) => {
         if (message[0] !== '!') {
             return;
         }
 
-        console.log(channel, username, message);
+        console.log(channel, tags.username, tags.mod, message);
 
         const lowercaseMessage = message.toLowerCase().substr(1);
 
@@ -38,7 +38,7 @@ async function run() {
             if (lowercaseMessage.substr(0, command.length) === command) {
                 // Commands can accept any of arguments which are separated in the message by spaces
                 const args = message.substr(1 + command.length).trim().split(' ');
-                await commands[command](client, channel, username, ...args);
+                await commands[command](client, channel, tags, ...args);
                 break;
             }
         }
