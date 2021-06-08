@@ -1,26 +1,35 @@
 import * as tmi from 'tmi.js'
+import { Client } from './types';
 
-export type Client = tmi.Client;
-export type CommandFunction = (client: Client, channel: string, tags: tmi.ChatUserstate, ...args: string[]) => Promise<any>;
-export type Commands = { [command: string]: CommandFunction };
+/**
+ * This class creates the twitch chat client and ensures it is a singleton
+ */
+class ClientSingleton {
+  private _tmiClient!: Client;
 
-let _tmiClient: Client;
-
-export async function getTmiClient() {
-  if (_tmiClient) {
-    return _tmiClient;
-  }
-
-  _tmiClient = new tmi.Client({
-    identity: {
-      username: process.env.TWITCH_USERNAME,
-      password: process.env.TWITCH_PASSWORD
-    },
-    connection: {
-      reconnect: true
+  /**
+   * Returns the twitch client - Singleton pattern
+   * @returns Either the existing client or it instantiates a global client
+   */
+  public getTmiClient = async(): Promise<Client> => {
+    if (this._tmiClient) {
+      return this._tmiClient;
     }
-  });
 
-  await _tmiClient.connect();
-  return _tmiClient;
+    this._tmiClient = new tmi.Client({
+      identity: {
+        username: process.env.TWITCH_USERNAME,
+        password: process.env.TWITCH_PASSWORD
+      },
+      connection: {
+        reconnect: true
+      }
+    });
+
+    await this._tmiClient.connect();
+
+    return this._tmiClient;
+  }
 }
+
+export const tmiClient = new ClientSingleton();

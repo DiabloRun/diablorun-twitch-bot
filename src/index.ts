@@ -1,14 +1,14 @@
-import { getTmiClient } from './tmi_client';
-import { getActiveChannels } from './api';
-import commands from './commands';
+import { tmiClient } from './tmi_client';
+import { api } from './api';
+import { commands } from './commands';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 async function joinChannels() {
-    const client = await getTmiClient();
+    const client = await tmiClient.getTmiClient();
     const currentChannels = client.getChannels();
-    const activeChannels = await getActiveChannels();
+    const activeChannels = await api.getActiveChannels();
 
     await Promise.all(activeChannels.map(async channel => {
         if (!currentChannels.includes(channel)) {
@@ -23,7 +23,7 @@ async function run() {
     await joinChannels();
     setInterval(() => joinChannels(), 30000);
 
-    const client = await getTmiClient();
+    const client = await tmiClient.getTmiClient();
 
     client.on('message', async (channel, tags, message) => {
         if (message[0] !== '!') {
