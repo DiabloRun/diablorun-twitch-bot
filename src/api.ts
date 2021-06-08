@@ -25,6 +25,14 @@ export async function getActiveUsers(): Promise<{ user_name: string }[]> {
 }
 
 export async function getActiveChannels(): Promise<string[]> {
-    const { channels }: { channels: string[] } = await get('/twitch-bot');
-    return channels.map(username => `#${username.toLowerCase()}`);
+    let usernames: string[];
+
+    if (process.env.CHANNELS) {
+        usernames = process.env.CHANNELS.split(',')
+    } else {
+        const res: { channels: string[] } = await get('/twitch-bot');
+        usernames = res.channels;
+    }
+
+    return usernames.map(username => `#${username.toLowerCase()}`);
 }

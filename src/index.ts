@@ -1,7 +1,7 @@
-import { Commands, getTmiClient } from './tmi_client';
+import { getTmiClient } from './tmi_client';
 import { getActiveChannels } from './api';
+import commands from './commands';
 import dotenv from 'dotenv';
-import { getRecipeCommands, getRunewordCommands } from './data_commands';
 
 dotenv.config();
 
@@ -18,19 +18,11 @@ async function joinChannels() {
     }));
 }
 
-async function runTwitchBot() {
+async function run() {
     // Stay in channels of users that have opted to use the bot
     await joinChannels();
     setInterval(() => joinChannels(), 30000);
 
-    //
-    const commands: Commands = {
-        'gear': async (client, channel) => await client.say(channel, `diablo.run/${channel.substr(1)}/@`),
-        ...getRunewordCommands(),
-        ...getRecipeCommands()
-    };
-
-    // 
     const client = await getTmiClient();
 
     client.on('message', async (channel, { username }, message) => {
@@ -53,4 +45,4 @@ async function runTwitchBot() {
     });
 }
 
-runTwitchBot();
+run();
