@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
-import { CharacterSnapshot, Usernames } from './types';
+import { CharacterSnapshot } from '@diablorun/api-server/src/types';
+import { Usernames } from './types';
 
 /**
  * The class that sends requests to the diablo.run api
