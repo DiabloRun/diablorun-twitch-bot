@@ -33,11 +33,13 @@ async function run() {
         console.log(channel, tags.username, tags.mod, message);
 
         const lowercaseMessage = message.toLowerCase().substr(1);
+        const parts = lowercaseMessage.trim().split(/\s+/);
 
-        for (const command in commands) {
-            if (lowercaseMessage.substr(0, command.length) === command) {
-                // Commands can accept any of arguments which are separated in the message by spaces
-                const args = message.substr(1 + command.length).trim().split(' ');
+        for (let i = 0; i < parts.length; ++i) {
+            const command = parts.slice(0, i + 1).join(' ');
+            const args = parts.slice(i + 1);
+    
+            if (commands.hasOwnProperty(command)) {
                 await commands[command](client, channel, tags, ...args);
                 break;
             }
