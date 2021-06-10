@@ -39,8 +39,8 @@ async function run() {
             const command = parts.slice(0, i + 1).join(' ');
             const args = parts.slice(i + 1);
     
-            if (commands.hasOwnProperty(command)) {
-                await commands[command](client, channel, tags, ...args);
+            if (commands.hasOwnProperty(lowercaseMessage)) {
+                await commands[lowercaseMessage](client, channel, tags, ...args);
                 break;
             }
         }
