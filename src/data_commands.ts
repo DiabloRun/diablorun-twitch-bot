@@ -1,10 +1,24 @@
-import { fbr, fcr, fhr, runewords, recipes } from '@diablorun/diablorun-data';
+import { acronyms, fbr, fcr, fhr, runewords, recipes } from '@diablorun/diablorun-data';
 import { CommandFunction, Commands } from './types';
 
 /**
  * Handles the commands based in diablorun-data static files
  */
 class DataCommands {
+    /**
+     * Creates the acronym commands for the bot
+     * @returns The acronym commands
+     */
+     public getAcronymCommands = (): Commands => {
+        const commands: Commands = {};
+
+        for (const name in acronyms) {
+            commands[name.toLowerCase()] = this.getDataCommand(`${name}: ${acronyms[name]}`);
+        }
+
+        return commands;
+    }
+
     /**
      * Creates the runeword commands for the bot
      * @returns The runeword commands
@@ -13,7 +27,11 @@ class DataCommands {
         const commands: Commands = {};
 
         for (const name in runewords) {
-            commands[name.toLowerCase()] = this.getDataCommand(`${name}: ${runewords[name]}`);
+            const runewordData = runewords[name];
+            const allowedItems = runewordData.allowedItems ? ` ${runewordData.allowedItems} -` : '';
+            const isLadder = runewordData.isLadder ? ' Ladder Only -' : '';
+            const commandOutput = `${runewordData.name} -${allowedItems} ${runewordData.runeword} -${isLadder} ${runewordData.properties.join(', ')}`;
+            commands[runewordData.name.toLowerCase()] = this.getDataCommand(`${commandOutput}`);
         }
 
         return commands;
