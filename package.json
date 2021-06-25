@@ -20,7 +20,7 @@
   "homepage": "https://github.com/DiabloRun/diablorun-twitch-bot#readme",
   "dependencies": {
     "@diablorun/api-server": "github:DiabloRun/diablorun-api-server#21.6.9",
-    "@diablorun/diablorun-data": "github:DiabloRun/diablorun-data#0.1.6",
+    "@diablorun/diablorun-data": "github:DiabloRun/diablorun-data#0.1.7",
     "dotenv": "^10.0.0",
     "node-fetch": "^2.6.1",
     "tmi.js": "^1.8.3"

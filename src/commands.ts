@@ -6,11 +6,12 @@ import { Commands } from './types';
  * Aggregates all bot commands here
  */
 export const commands: Commands = {
-    ...dataCommands.getRunewordCommands(),
-    ...dataCommands.getRecipeCommands(),
+    ...dataCommands.getAcronymCommands(),
     ...dataCommands.getFasterBlockRateCommands(),
     ...dataCommands.getFasterCastRateCommands(),
     ...dataCommands.getFasterHitRecoveryCommands(),
+    ...dataCommands.getRecipeCommands(),
+    ...dataCommands.getRunewordCommands(),
 
     /**
      * Returns the url for the user Diablo.run current live run
