@@ -8,6 +8,9 @@ import { Commands } from './types';
 export const commands: Commands = {
     ...dataCommands.getRunewordCommands(),
     ...dataCommands.getRecipeCommands(),
+    ...dataCommands.getFasterBlockRateCommands(),
+    ...dataCommands.getFasterCastRateCommands(),
+    ...dataCommands.getFasterHitRecoveryCommands(),
 
     /**
      * Returns the url for the user Diablo.run current live run
